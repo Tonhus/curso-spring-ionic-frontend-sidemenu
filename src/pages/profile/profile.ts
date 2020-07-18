@@ -24,7 +24,6 @@ export class ProfilePage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ProfilePage');
     let localUser = this.storage.getLocalUser();
     if (localUser && localUser.email) {
       // this.email = localUser.email;
