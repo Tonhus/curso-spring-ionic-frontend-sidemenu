@@ -1,17 +1,19 @@
-import { AuthService } from './../services/auth.service';
-import { CategoriaService } from './../services/domain/categoria.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
-import { ErrorInterceptorProvider } from '../interceptors/error.interceptor';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { StorageService } from '../services/storage.service';
 
+import { ErrorInterceptorProvider } from '../interceptors/error.interceptor';
+
+import { AuthService } from './../services/auth.service';
+import { CategoriaService } from './../services/domain/categoria.service';
+import { ClienteService } from '../services/domain/cliente.service';
+import { StorageService } from '../services/storage.service';
 
 @NgModule({
   declarations: [
@@ -29,11 +31,12 @@ import { StorageService } from '../services/storage.service';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     ErrorInterceptorProvider,
     AuthService,
     StorageService,
-    CategoriaService
+    CategoriaService,
+    ClienteService
   ]
 })
-export class AppModule {}
+export class AppModule { }
