@@ -1,3 +1,4 @@
+
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -8,6 +9,7 @@ import { MyApp } from './app.component';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import { AuthInterceptorProvider } from './../interceptors/auth.interceptor';
 import { ErrorInterceptorProvider } from '../interceptors/error.interceptor';
 
 import { AuthService } from './../services/auth.service';
@@ -32,6 +34,7 @@ import { StorageService } from '../services/storage.service';
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
+    AuthInterceptorProvider,
     ErrorInterceptorProvider,
     AuthService,
     StorageService,
