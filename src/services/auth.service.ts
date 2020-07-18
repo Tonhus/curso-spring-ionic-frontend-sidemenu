@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Rx';
 import { StorageService } from './storage.service';
 import { LocalUser } from './../models/local_user';
 import { API_CONFIG } from './../config/api.config';
@@ -20,7 +21,13 @@ export class AuthService {
             observe: 'response',
             responseType: 'text'
         });
+    }
 
+    refreshToken(){
+        return this.http.post(`${API_CONFIG.baseUrl}/auth/refresh_token`,{},{
+            observe: 'response',
+            responseType: 'text'
+        });
     }
 
     successfullLogin(authorizationValue: string) {

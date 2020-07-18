@@ -4,12 +4,6 @@ import { CategoriaService } from './../../services/domain/categoria.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-/**
- * Generated class for the CategoriasPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -18,8 +12,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class CategoriasPage {
 
-items:CategoriaDTO[];
-bucketUrl : string = API_CONFIG.bucketBaseUrl;
+  items: CategoriaDTO[];
+  bucketUrl: string = API_CONFIG.bucketBaseUrl;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public categoriaService: CategoriaService) {
   }
@@ -28,16 +22,26 @@ bucketUrl : string = API_CONFIG.bucketBaseUrl;
     this.categoriaService.findAll().subscribe(
       response => {
         this.items = response;
-        //console.log(response);
+        this.items.forEach(element => {
+          if (element.imageUrl == null) {
+            this.getImageIfExists(element);
+          }
+        });
+        console.log(this.items);
       },
-      error => {}
+      error => { }
     );
-    
+
+
   }
 
 
-  callback(response){
+  callback(response) {
     console.log(response);
+  }
+
+  getImageIfExists(categoriaDto: CategoriaDTO) {
+    categoriaDto.imageUrl = `${API_CONFIG.bucketBaseUrl}/cat${categoriaDto.id}.jpg`
   }
 
 }
