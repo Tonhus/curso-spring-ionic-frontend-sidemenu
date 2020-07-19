@@ -1,3 +1,4 @@
+import { CartService } from './domain/cart.service';
 import { Observable } from 'rxjs/Rx';
 import { StorageService } from './storage.service';
 import { LocalUser } from './../models/local_user';
@@ -12,7 +13,7 @@ export class AuthService {
 
     jwtHelper: JwtHelper = new JwtHelper();
 
-    constructor(public http: HttpClient, public storage: StorageService) {
+    constructor(public http: HttpClient, public storage: StorageService, public cartService: CartService) {
 
     }
 
@@ -37,6 +38,8 @@ export class AuthService {
             email: this.jwtHelper.decodeToken(tok).sub
         };
         this.storage.setLocalUser(user);
+        this.cartService.createOrClearCart();
+
     }
 
     logout() {
