@@ -16,6 +16,7 @@ import { AuthService } from './../services/auth.service';
 import { CategoriaService } from './../services/domain/categoria.service';
 import { ClienteService } from '../services/domain/cliente.service';
 import { StorageService } from '../services/storage.service';
+import { ViaCepService } from '../services/domain/viaCep.service';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { StorageService } from '../services/storage.service';
     AuthService,
     StorageService,
     CategoriaService,
-    ClienteService
+    ClienteService,
+    ViaCepService
   ]
 })
 export class AppModule { }
