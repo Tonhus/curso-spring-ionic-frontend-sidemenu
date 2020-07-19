@@ -31,8 +31,6 @@ export class CategoriasPage {
       },
       error => { }
     );
-
-
   }
 
   callback(response) {
@@ -43,8 +41,8 @@ export class CategoriasPage {
     categoriaDto.imageUrl = `${API_CONFIG.bucketBaseUrl}/cat${categoriaDto.id}.jpg`
   }
 
-showProdutos(){
-  this.navCtrl.push("ProdutosPage");
+showProdutos(categoria_id:string){
+  this.navCtrl.push("ProdutosPage",{categoria_id:categoria_id});
 }
 
 }

@@ -1,6 +1,8 @@
+import { ProdutosService } from './../../services/domain/produto.service';
 import { ProdutoDTO } from './../../models/produto.dto';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { API_CONFIG } from '../../config/api.config';
 
 @IonicPage()
 @Component({
@@ -8,21 +10,34 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'produtos.html',
 })
 export class ProdutosPage {
-  items : ProdutoDTO[];
+  items: ProdutoDTO[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  bucketUrl: string = API_CONFIG.bucketBaseUrl;
+
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public produtosService: ProdutosService) {
   }
 
   ionViewDidLoad() {
-    this.items = [ 
-      {id:"1",nome:"Teste 1",preco:189.99 },
-      {id:"2",nome:"Teste 2",preco:289.99 },
-      {id:"3",nome:"Teste 3",preco:389.99 },
-      {id:"4",nome:"Teste 4",preco:489.99 },
-      {id:"5",nome:"Teste 5",preco:589.99 },
-      {id:"6",nome:"Teste 6",preco:689.99 },
+    let categoria_id = this.navParams.get('categoria_id');
+    this.produtosService.findByCategoria(categoria_id).subscribe(
+      response => {
+        this.items = response['content'];
+        this.items.forEach(element => {
+          if (element.imageUrl == null) {
+            this.getImageIfExists(element);
+          }
+        });
+        console.log(this.items);
+      },
+      error => { }
+    );
+  }
 
-    ]
+  getImageIfExists(produtoDto: ProdutoDTO) {
+    produtoDto.imageUrl = `${API_CONFIG.bucketBaseUrl}/prod${produtoDto.id}.jpg`
   }
 
 
