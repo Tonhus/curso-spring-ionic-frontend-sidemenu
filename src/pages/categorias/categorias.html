@@ -5,17 +5,16 @@
     </button>
     <ion-title>Categorias</ion-title>
   </ion-navbar>
+  <icone-cart></icone-cart>
 </ion-header>
 
 <ion-content padding>
-  <h3 class="center wfill">Categorias</h3>
-
   <ion-list>
     <button ion-item *ngFor="let item of items" (click)="showProdutos(item.id)">
-      <ion-thumbnail item-start >
-        <img class="circle center" [src]="item.imageUrl || 'assets/imgs/img-blank.jpg'" >
+      <ion-thumbnail item-start>
+        <img class="circle center" [src]="item.imageUrl || 'assets/imgs/img-blank.jpg'">
       </ion-thumbnail>
-      <ion-label >{{item.nome}}</ion-label>
+      <ion-label>{{item.nome}}</ion-label>
     </button>
   </ion-list>
 </ion-content>
