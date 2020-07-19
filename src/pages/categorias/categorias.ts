@@ -35,7 +35,6 @@ export class CategoriasPage {
 
   }
 
-
   callback(response) {
     console.log(response);
   }
@@ -43,5 +42,9 @@ export class CategoriasPage {
   getImageIfExists(categoriaDto: CategoriaDTO) {
     categoriaDto.imageUrl = `${API_CONFIG.bucketBaseUrl}/cat${categoriaDto.id}.jpg`
   }
+
+showProdutos(){
+  this.navCtrl.push("ProdutosPage");
+}
 
 }
