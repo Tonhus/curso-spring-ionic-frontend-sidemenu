@@ -1,5 +1,5 @@
 export interface EstadoDTO {
-    id: number;
+    id: string;
     nome: string;
     sigla: string;
 }

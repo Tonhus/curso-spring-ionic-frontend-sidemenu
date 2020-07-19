@@ -14,32 +14,27 @@
       <ion-label stacked>Email*</ion-label>
       <ion-input formControlName="email" type="text"></ion-input>
     </ion-item>
-    <ion-list radio-group formControlName="tipo">
-      <ion-list-header>
-        Tipo de cliente
-      </ion-list-header>
-      <ion-item>
-        <ion-label>Pessoa física</ion-label>
-        <ion-radio checked="true" value="1"></ion-radio>
-      </ion-item>
-      <ion-item>
-        <ion-label>Pessoa jurídica</ion-label>
-        <ion-radio value="2"></ion-radio>
-      </ion-item>
-    </ion-list>
-
     <ion-item>
-      <ion-label stacked>CPF ou CNPJ</ion-label>
-      <ion-input formControlName="cpfOuCnpj" type="text"></ion-input>
+      <ion-label stacked>Tipo de cliente</ion-label>
+      <ion-select formControlName="tipo" (ionChange)="updateCpfOuCnpj()">
+        <ion-option value="1">Pessoa física</ion-option>
+        <ion-option value="2">Pessoa jurídica</ion-option>
+      </ion-select>
     </ion-item>
+    <ion-input-mask formControlName="cpfOuCnpj" label="{{cpfOuCnpjLabel}}" typeLabel="stacked" typeInput="text"
+      mask="{{cpfOuCnpjMask}}" [dropSpecialCharacters]="false"></ion-input-mask>
     <ion-item>
       <ion-label stacked>Senha*</ion-label>
       <ion-input formControlName="senha" type="password"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label stacked>CEP*</ion-label>
-      <ion-input formControlName="cep" type="text" (focusout)="updateEndereco()"></ion-input>
+      <ion-label stacked>Confirme a Senha*</ion-label>
+      <ion-input formControlName="senhaConfirm" type="password"></ion-input>
     </ion-item>
+    
+
+    <ion-input-mask formControlName="cep" label="Cep*" typeLabel="stacked" typeInput="text" mask="99999-999"
+      [dropSpecialCharacters]="false" (focusout)="updateEndereco()"></ion-input-mask>
     <ion-item>
       <ion-label stacked>Logradouro*</ion-label>
       <ion-input formControlName="logradouro" type="text"></ion-input>
@@ -59,7 +54,8 @@
     <ion-item>
       <ion-label stacked>Estado*</ion-label>
       <ion-select formControlName="estadoId" (ionChange)="updateCidades()">
-        <ion-option *ngFor="let estado of estados; first as f" [value]="estado.id" [selected]="f">{{estado.nome}}</ion-option>
+        <ion-option *ngFor="let estado of estados; first as f" [value]="estado.id" [selected]="f">{{estado.nome}}
+          ({{estado.sigla}})</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
@@ -68,18 +64,13 @@
         <ion-option *ngFor="let cidade of cidades" [value]="cidade.id">{{cidade.nome}}</ion-option>
       </ion-select>
     </ion-item>
-    <ion-item>
-      <ion-label stacked>Telefone 1*</ion-label>
-      <ion-input formControlName="telefone1" type="text"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label stacked>Telefone 2</ion-label>
-      <ion-input formControlName="telefone2" type="text"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label stacked>Telefone 3</ion-label>
-      <ion-input formControlName="telefone3" type="text"></ion-input>
-    </ion-item>
+    <ion-input-mask formControlName="telefone1" label="Telefone 1*" typeLabel="stacked" typeInput="text"
+      mask="(999) 99999-9999" [dropSpecialCharacters]="false"></ion-input-mask>
+    <ion-input-mask formControlName="telefone2" label="Telefone 2" typeLabel="stacked" typeInput="text"
+      mask="(999) 99999-9999" [dropSpecialCharacters]="false"></ion-input-mask>
+    <ion-input-mask formControlName="telefone3" label="Telefone 3" typeLabel="stacked" typeInput="text"
+      mask="(999) 99999-9999" [dropSpecialCharacters]="false"></ion-input-mask>
+
     <button ion-button block type="submit">Criar conta</button>
   </form>
 </ion-content>

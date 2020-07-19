@@ -15,11 +15,4 @@ export class ViaCepService {
         return this.http.get<ViaCepDTO>(`http://viacep.com.br/ws/${cep}/json/`);
     }
 
-    getEstados(): Observable<EstadoDTO[]> {
-        return this.http.get<EstadoDTO[]>(`https://servicodados.ibge.gov.br/api/v1/localidades/estados`);
-    }
-
-    getCidades(estadoId: number): Observable<CidadeDTO[]> {
-        return this.http.get<EstadoDTO[]>(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${estadoId}/municipios`);
-    }
 }
