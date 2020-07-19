@@ -14,6 +14,8 @@ export class MyApp {
 
   pages: Array<{ title: string, component: string }>;
 
+ 
+
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public authService: AuthService) {
     this.initializeApp();
 

@@ -10,10 +10,28 @@
       <ion-label stacked>Nome*</ion-label>
       <ion-input formControlName="nome" type="text"></ion-input>
     </ion-item>
+    <div class="error-messages" margin-left>
+      <ng-container *ngFor="let error of error_messages.nome">
+        <div class="error-message"
+          *ngIf="formGroup.controls.nome.hasError(error.type) && (formGroup.controls.nome.dirty || formGroup.controls.nome.touched)">
+          {{ error.message }}
+        </div>
+      </ng-container>
+    </div>
+
     <ion-item>
       <ion-label stacked>Email*</ion-label>
       <ion-input formControlName="email" type="text"></ion-input>
     </ion-item>
+    <div class="error-messages" margin-left>
+      <ng-container *ngFor="let error of error_messages.email">
+        <div class="error-message"
+          *ngIf="formGroup.controls.email.hasError(error.type) && (formGroup.controls.email.dirty || formGroup.controls.email.touched)">
+          {{ error.message }}
+        </div>
+      </ng-container>
+    </div>
+
     <ion-item>
       <ion-label stacked>Tipo de cliente</ion-label>
       <ion-select formControlName="tipo" (ionChange)="updateCpfOuCnpj()">
@@ -21,28 +39,69 @@
         <ion-option value="2">Pessoa jurídica</ion-option>
       </ion-select>
     </ion-item>
+
     <ion-input-mask formControlName="cpfOuCnpj" label="{{cpfOuCnpjLabel}}" typeLabel="stacked" typeInput="text"
       mask="{{cpfOuCnpjMask}}" [dropSpecialCharacters]="false"></ion-input-mask>
+    <div class="error-messages" margin-left>
+      <ng-container *ngFor="let error of error_messages.cpfOuCnpj">
+        <div class="error-message"
+          *ngIf="formGroup.controls.cpfOuCnpj.hasError(error.type) && (formGroup.controls.cpfOuCnpj.dirty || formGroup.controls.cpfOuCnpj.touched)">
+          {{ error.message }}
+        </div>
+      </ng-container>
+    </div>
+
     <ion-item>
       <ion-label stacked>Senha*</ion-label>
       <ion-input formControlName="senha" type="password"></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-label stacked>Confirme a Senha*</ion-label>
-      <ion-input formControlName="senhaConfirm" type="password"></ion-input>
-    </ion-item>
-    
+    <div class="error-messages" margin-left>
+      <ng-container *ngFor="let error of error_messages.senha">
+        <div class="error-message"
+          *ngIf="formGroup.controls.senha.hasError(error.type) && (formGroup.controls.senha.dirty || formGroup.controls.senha.touched)">
+          {{ error.message }}
+        </div>
+      </ng-container>
+    </div>
+
 
     <ion-input-mask formControlName="cep" label="Cep*" typeLabel="stacked" typeInput="text" mask="99999-999"
       [dropSpecialCharacters]="false" (focusout)="updateEndereco()"></ion-input-mask>
+    <div class="error-messages" margin-left>
+      <ng-container *ngFor="let error of error_messages.cep">
+        <div class="error-message"
+          *ngIf="formGroup.controls.cep.hasError(error.type) && (formGroup.controls.cep.dirty || formGroup.controls.cep.touched)">
+          {{ error.message }}
+        </div>
+      </ng-container>
+    </div>
+
     <ion-item>
       <ion-label stacked>Logradouro*</ion-label>
       <ion-input formControlName="logradouro" type="text"></ion-input>
     </ion-item>
+    <div class="error-messages" margin-left>
+      <ng-container *ngFor="let error of error_messages.logradouro">
+        <div class="error-message"
+          *ngIf="formGroup.controls.logradouro.hasError(error.type) && (formGroup.controls.logradouro.dirty || formGroup.controls.logradouro.touched)">
+          {{ error.message }}
+        </div>
+      </ng-container>
+    </div>
+
     <ion-item>
       <ion-label stacked>Número*</ion-label>
       <ion-input formControlName="numero" type="text"></ion-input>
     </ion-item>
+    <div class="error-messages" margin-left>
+      <ng-container *ngFor="let error of error_messages.numero">
+        <div class="error-message"
+          *ngIf="formGroup.controls.numero.hasError(error.type) && (formGroup.controls.numero.dirty || formGroup.controls.numero.touched)">
+          {{ error.message }}
+        </div>
+      </ng-container>
+    </div>
+
     <ion-item>
       <ion-label stacked>Complemento</ion-label>
       <ion-input formControlName="complemento" type="text"></ion-input>
@@ -64,13 +123,31 @@
         <ion-option *ngFor="let cidade of cidades" [value]="cidade.id">{{cidade.nome}}</ion-option>
       </ion-select>
     </ion-item>
+    <div class="error-messages" margin-left>
+      <ng-container *ngFor="let error of error_messages.cidadeId">
+        <div class="error-message"
+          *ngIf="formGroup.controls.cidadeId.hasError(error.type) && (formGroup.controls.cidadeId.dirty || formGroup.controls.cidadeId.touched)">
+          {{ error.message }}
+        </div>
+      </ng-container>
+    </div>
+
     <ion-input-mask formControlName="telefone1" label="Telefone 1*" typeLabel="stacked" typeInput="text"
       mask="(999) 99999-9999" [dropSpecialCharacters]="false"></ion-input-mask>
+    <div class="error-messages" margin-left>
+      <ng-container *ngFor="let error of error_messages.telefone1">
+        <div class="error-message"
+          *ngIf="formGroup.controls.telefone1.hasError(error.type) && (formGroup.controls.telefone1.dirty || formGroup.controls.telefone1.touched)">
+          {{ error.message }}
+        </div>
+      </ng-container>
+    </div>
+
     <ion-input-mask formControlName="telefone2" label="Telefone 2" typeLabel="stacked" typeInput="text"
       mask="(999) 99999-9999" [dropSpecialCharacters]="false"></ion-input-mask>
     <ion-input-mask formControlName="telefone3" label="Telefone 3" typeLabel="stacked" typeInput="text"
       mask="(999) 99999-9999" [dropSpecialCharacters]="false"></ion-input-mask>
 
-    <button ion-button block type="submit">Criar conta</button>
+    <button ion-button block type="submit" [disabled]="formGroup.invalid">Criar conta</button>
   </form>
 </ion-content>

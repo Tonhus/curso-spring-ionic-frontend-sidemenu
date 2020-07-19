@@ -23,6 +23,40 @@ export class SignupPage {
   endereco: ViaCepDTO;
   cpfOuCnpjLabel: string;
   cpfOuCnpjMask: string;
+  error_messages = {
+    'nome': [
+      { type: 'required', message: 'Preenchimento Obrigatório' },
+      { type: 'minlength', message: 'O Tamanho deve ser entre 5 e 120 caracteres' },
+      { type: 'maxlength', message: 'O Tamanho deve ser entre 5 e 120 caracteres' }
+    ],
+    'email': [
+      { type: 'required', message: 'Preenchimento Obrigatório' },
+      { type: 'email', message: 'Email inválido' }
+    ],
+    'cpfOuCnpj': [
+      { type: 'required', message: 'Preenchimento Obrigatório' },
+      { type: 'minlength', message: 'O Tamanho deve ser entre 11 e 14 caracteres' },
+      { type: 'maxlength', message: 'O Tamanho deve ser entre 11 e 14 caracteres' }
+    ],
+    'senha': [
+      { type: 'required', message: 'Preenchimento Obrigatório' }
+    ],
+    'logradouro': [
+      { type: 'required', message: 'Preenchimento Obrigatório' }
+    ],
+    'numero': [
+      { type: 'required', message: 'Preenchimento Obrigatório' }
+    ],
+    'cep': [
+      { type: 'required', message: 'Preenchimento Obrigatório' }
+    ],
+    'cidadeId': [
+      { type: 'required', message: 'Preenchimento Obrigatório' }
+    ],
+    'telefone1': [
+      { type: 'required', message: 'Preenchimento Obrigatório' }
+    ],
+  }
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, public viaCepService: ViaCepService, public alertController: AlertController, public cidadeService: CidadeService, public estadoService: EstadoService) {
     this.formGroup = formBuilder.group({
