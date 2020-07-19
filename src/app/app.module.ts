@@ -20,7 +20,7 @@ import { CategoriaService } from './../services/domain/categoria.service';
 import { ClienteService } from '../services/domain/cliente.service';
 import { StorageService } from '../services/storage.service';
 import { ViaCepService } from '../services/domain/viaCep.service';
-import { ProdutosService } from '../services/domain/produto.service';
+import { ProdutoService } from '../services/domain/produto.service';
 
 @NgModule({
   declarations: [
@@ -46,7 +46,7 @@ import { ProdutosService } from '../services/domain/produto.service';
     CategoriaService,
     ClienteService,
     ViaCepService,
-    ProdutosService
+    ProdutoService
   ]
 })
 export class AppModule { }

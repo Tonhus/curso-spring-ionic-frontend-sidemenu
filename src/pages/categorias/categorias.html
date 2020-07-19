@@ -13,7 +13,7 @@
   <ion-list>
     <button ion-item *ngFor="let item of items" (click)="showProdutos(item.id)">
       <ion-thumbnail item-start >
-        <img class="circle center" [src]="item?.imageUrl" onerror="this.src='assets/imgs/img-blank.jpg'" >
+        <img class="circle center" [src]="item.imageUrl || 'assets/imgs/img-blank.jpg'" >
       </ion-thumbnail>
       <ion-label >{{item.nome}}</ion-label>
     </button>

@@ -22,9 +22,12 @@ export class ClienteService {
             `${API_CONFIG.baseUrl}/clientes/email?value=${email}`);
     }
 
+    getImageUrl(id: string): string {
+        return `${API_CONFIG.bucketBaseUrl}/cp${id}.jpg`
+    }
+
     getImageFromBuket(id: string): Observable<any> {
-        let url = `${API_CONFIG.bucketBaseUrl}/cp${id}.jpg`
-        return this.http.get(url, { responseType: 'blob' });
+        return this.http.get(this.getImageUrl(id), { responseType: 'blob' });
     }
 
     insert(obj: ClienteNewDTO) {
