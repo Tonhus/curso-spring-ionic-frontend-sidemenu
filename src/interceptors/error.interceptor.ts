@@ -1,3 +1,4 @@
+import { FieldMessage } from './../models/field-message';
 import { Injectable } from "@angular/core";
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { Observable } from "rxjs/Rx";
@@ -29,13 +30,16 @@ export class ErrorInterceptor implements HttpInterceptor {
                 case 401:
                     this.handle401();
                     break;
+                case 422:
+                    this.handle422(errorObj);
+                    break;
                 default:
                     this.defaultHandler(errorObj);
             }
             return Observable.throw(errorObj);
         }) as any;
     }
-
+    
     handle403() {
         this.storage.setLocalUser(null);
     }
@@ -50,7 +54,25 @@ export class ErrorInterceptor implements HttpInterceptor {
         alert.present();
     }
 
-    defaultHandler(errorObj){
+    handle422(errorObj) {
+        let alert = this.alertController.create({
+            title: `Error ${errorObj.status}: ${errorObj.error}`,
+            message: this.listErros(errorObj.erros),
+            enableBackdropDismiss: false,
+            buttons: [{ text: 'Ok' }]
+        });
+        alert.present();
+    }
+
+    listErros(messages: FieldMessage[]): string {
+      let s : string = '';
+      for (var i=0; i<messages.length;i++){
+          s = s + `<p><strong>${messages[i].fieldName}</strong>: ${messages[i].message}</p>`;
+      }
+      return s;
+    }
+
+    defaultHandler(errorObj) {
         let alert = this.alertController.create({
             title: `Error ${errorObj.status}: ${errorObj.error}`,
             message: errorObj.message,

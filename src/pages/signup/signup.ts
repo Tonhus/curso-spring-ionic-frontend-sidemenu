@@ -8,6 +8,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ViaCepDTO } from '../../models/viacep.dto';
 import { EstadoDTO } from '../../models/estado.dto';
 import { CidadeDTO } from '../../models/cidade.dto';
+import { ClienteService } from '../../services/domain/cliente.service';
 
 @IonicPage()
 @Component({
@@ -58,7 +59,15 @@ export class SignupPage {
     ],
   }
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, public viaCepService: ViaCepService, public alertController: AlertController, public cidadeService: CidadeService, public estadoService: EstadoService) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public formBuilder: FormBuilder,
+    public viaCepService: ViaCepService,
+    public alertController: AlertController,
+    public cidadeService: CidadeService,
+    public estadoService: EstadoService,
+    public clienteService: ClienteService) {
     this.formGroup = formBuilder.group({
       nome: ['Joaquim', [Validators.required, Validators.minLength(5), Validators.maxLength(120)]],
       email: ['joaquim@gmail.com', [Validators.required, Validators.email]],
@@ -108,24 +117,27 @@ export class SignupPage {
   }
 
   signupUser() {
-    let clienteNewDTO: ClienteNewDTO = {
-      nome: this.formGroup.controls.nome.value,
-      email: this.formGroup.controls.email.value,
-      cpfOuCnpj: this.formGroup.controls.cpfOuCnpj.value,
-      tipo: this.formGroup.controls.tipo.value,
-      senha: this.formGroup.controls.senha.value,
-      logradouro: this.formGroup.controls.logradouro.value,
-      numero: this.formGroup.controls.numero.value,
-      complemento: this.formGroup.controls.complemento.value,
-      bairro: this.formGroup.controls.bairro.value,
-      cep: this.formGroup.controls.cep.value,
-      telefone1: this.formGroup.controls.telefone1.value,
-      telefone2: this.formGroup.controls.telefone2.value,
-      telefone3: this.formGroup.controls.telefone3.value,
-      cidadeId: this.formGroup.controls.cidadeId.value,
-    };
     console.log("Enviou o cadastro")
-    console.log(clienteNewDTO)
+
+    this.clienteService.insert(this.formGroup.value).subscribe(
+      response => { this.showInsertOK() },
+      error => { }
+    );
+  }
+
+  showInsertOK() {
+    let alert = this.alertController.create({
+      title: 'Sucesso!',
+      message: 'Cadastro efetuado com sucesso',
+      enableBackdropDismiss: false,
+      buttons: [{
+        text: 'Ok',
+        handler: () => {
+          this.navCtrl.setRoot('HomePage')
+        }
+      }]
+    });
+    alert.present();
   }
 
   updateCpfOuCnpj() {
