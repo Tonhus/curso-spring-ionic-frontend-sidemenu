@@ -1,6 +1,11 @@
+import { CartService } from './../../services/domain/cart.service';
+import { PedidoDTO } from './../../models/pedido.dto';
 import { EnderecoDTO } from './../../models/endereco.dto';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ClienteService } from '../../services/domain/cliente.service';
+import { StorageService } from '../../services/storage.service';
+import { RefDTO } from '../../models/ref.dto';
 
 @IonicPage()
 @Component({
@@ -9,47 +14,40 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class PickAddressPage {
 
-items:EnderecoDTO[];
+  items: EnderecoDTO[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  pedido: PedidoDTO;
+
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public clienteService: ClienteService,
+    public storage: StorageService,
+    public cartService: CartService) {
   }
 
   ionViewDidLoad() {
-    this.items = [
-      {
-          id: "1",
-          logradouro: "Rua Flores",
-          numero: "300",
-          complemento: "Apto 303",
-          bairro: "Jardim",
-          cep: "38220834",
-          cidade: {
-              id: "3170206",
-              nome: "Uberlândia",
-              estado: {
-                  id: "31",
-                  nome: "Minas Gerais",
-                  sigla: "MG"
-              }
+    let localUser = this.storage.getLocalUser();
+    let cart = this.cartService.getCart();
+    if (localUser && localUser.email) {
+      this.clienteService.findByEmail(localUser.email)
+        .subscribe(response => {
+          this.items = response['enderecos'];
+          this.pedido = {
+            cliente: { id: response["id"] },
+            enderecoDeEntrega: null,
+            pagamento: null,
+            items: cart.items.map(x => { return { quantidade: x.quantidade, produto: { id: x.produto.id } } })
           }
-      },
-      {
-          id: "2",
-          logradouro: "Avenida Matos",
-          numero: "105",
-          complemento: "Sala 800",
-          bairro: "Centro",
-          cep: "38777012",
-          cidade: {
-              id: "3550308",
-              nome: "São Paulo",
-              estado: {
-                  id: "35",
-                  nome: "São Paulo",
-                  sigla: "SP"
-              }
-          }
-      }]
+        },
+          error => { })
+    } else {
+      this.navCtrl.setRoot('HomePage')
+    }
   }
 
+  nextPage(item: EnderecoDTO) {
+    this.pedido.enderecoDeEntrega = {id : item.id} ;
+    console.log(this.pedido);
+  }
 }
