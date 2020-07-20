@@ -117,8 +117,7 @@ export class SignupPage {
   }
 
   signupUser() {
-    console.log("Enviou o cadastro")
-
+    console.log("Enviou o cadastro");
     this.clienteService.insert(this.formGroup.value).subscribe(
       response => { this.showInsertOK() },
       error => { }
@@ -195,8 +194,4 @@ export class SignupPage {
       error => { }
     );
   }
-
-
-
-
 }

@@ -51,7 +51,15 @@ export class CartPage {
   }
 
   goOn(){
-    this.navCtrl.setRoot('CategoriasPage');
+    this.navCtrl.push('CategoriasPage');
+  }
+
+  checkout(){
+    this.navCtrl.push('PickAddressPage');
+  }
+
+  showDetail(produto_id: string) {
+    this.navCtrl.push("ProdutoDetailPage", { produto_id: produto_id });
   }
 
 }
