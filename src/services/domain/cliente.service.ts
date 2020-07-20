@@ -12,17 +12,14 @@ export class ClienteService {
     constructor(public http: HttpClient, public storage: StorageService) {
     }
 
+    findById(id: string) {
+        return this.http.get(
+            `${API_CONFIG.baseUrl}/clientes/${id}`);
+    }
+
     findByEmail(email: string) {
         return this.http.get(
             `${API_CONFIG.baseUrl}/clientes/email?value=${email}`);
-    }
-
-    getImageUrl(id: string): string {
-        return `${API_CONFIG.bucketBaseUrl}/cp${id}.jpg`
-    }
-
-    getImageFromBuket(id: string): Observable<any> {
-        return this.http.get(this.getImageUrl(id), { responseType: 'blob' });
     }
 
     insert(obj: ClienteNewDTO) {

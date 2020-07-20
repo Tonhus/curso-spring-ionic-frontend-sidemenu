@@ -4,6 +4,7 @@ import { ProdutoService } from './../../services/domain/produto.service';
 import { ProdutoDTO } from './../../models/produto.dto';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ImageBucketService } from '../../services/image-bucket.service';
 
 @IonicPage()
 @Component({
@@ -12,14 +13,15 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ProdutosPage {
   items: ProdutoDTO[];
-  categoria : CategoriaDTO;
+  categoria: CategoriaDTO;
 
-  
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public produtoService: ProdutoService,
-    public categoriaService:CategoriaService) {
+    public categoriaService: CategoriaService,
+    public imageBucketService: ImageBucketService) {
   }
 
   ionViewDidLoad() {
@@ -43,15 +45,7 @@ export class ProdutosPage {
 
 
   loadImageUrls() {
-    for (var i = 0; i < this.items.length; i++) {
-      let item = this.items[i];
-      this.produtoService.getSmallImageFromBucket(item.id).subscribe(
-        response => {
-          item.imageUrl = this.produtoService.getSmallImageUrl(item.id);
-        },
-        error => {}
-      );
-    }
+    this.imageBucketService.loadImageUrls(this.items, this.imageBucketService.produtoPrefix);
   }
 
   showDetail(produto_id: string) {

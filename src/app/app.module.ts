@@ -26,6 +26,7 @@ import { ProdutoService } from '../services/domain/produto.service';
 import { CartService } from '../services/domain/cart.service';
 import { ComponentsModule } from '../components/components.module';
 import {FormsModule} from '@angular/forms';
+import { ImageBucketService } from '../services/image-bucket.service';
 
 
 registerLocaleData(localePT);
@@ -56,6 +57,7 @@ registerLocaleData(localePT);
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthInterceptorProvider,
     ErrorInterceptorProvider,
+    ImageBucketService,
     AuthService,
     StorageService,
     CategoriaService,

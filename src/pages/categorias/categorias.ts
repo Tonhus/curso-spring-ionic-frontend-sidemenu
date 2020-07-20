@@ -1,3 +1,4 @@
+import { ImageBucketService } from './../../services/image-bucket.service';
 import { CategoriaDTO } from './../../models/categoria.dto';
 import { CategoriaService } from './../../services/domain/categoria.service';
 import { Component } from '@angular/core';
@@ -16,7 +17,8 @@ export class CategoriasPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public categoriaService: CategoriaService) {
+    public categoriaService: CategoriaService,
+    public imageBucketService : ImageBucketService) {
   }
 
   ionViewDidLoad() {
@@ -31,15 +33,7 @@ export class CategoriasPage {
   }
 
   loadImageUrls() {
-    for (var i = 0; i < this.items.length; i++) {
-      let item = this.items[i];
-      this.categoriaService.getImageFromBucket(item.id).subscribe(
-        response => {
-          item.imageUrl = this.categoriaService.getImageUrl(item.id);
-        },
-        error => { }
-      );
-    }
+    this.imageBucketService.loadImageUrls(this.items,this.imageBucketService.categoriaPrefix);
   }
 
   showProdutos(categoria_id: string) {

@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CartItem } from '../../models/cart-item';
 import { ProdutoDTO } from '../../models/produto.dto';
+import { ImageBucketService } from '../../services/image-bucket.service';
 
 @IonicPage()
 @Component({
@@ -14,7 +15,8 @@ export class CartPage {
 
   items: CartItem[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public cartService: CartService, public produtoService: ProdutoService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public cartService: CartService, public produtoService: ProdutoService,
+    public imageBucketService: ImageBucketService) {
   }
 
   ionViewDidLoad() {
@@ -23,15 +25,7 @@ export class CartPage {
   }
 
   loadImageUrls() {
-    for (var i = 0; i < this.items.length; i++) {
-      let item = this.items[i].produto;
-      this.produtoService.getSmallImageFromBucket(item.id).subscribe(
-        response => {
-          item.imageUrl = this.produtoService.getSmallImageUrl(item.id);
-        },
-        error => { }
-      );
-    }
+    this.imageBucketService.loadImageUrls(this.items, this.imageBucketService.produtoPrefix);
   }
 
   removeProduto(produto: ProdutoDTO) {
@@ -50,11 +44,11 @@ export class CartPage {
     return this.cartService.total();
   }
 
-  goOn(){
+  goOn() {
     this.navCtrl.push('CategoriasPage');
   }
 
-  checkout(){
+  checkout() {
     this.navCtrl.push('PickAddressPage');
   }
 

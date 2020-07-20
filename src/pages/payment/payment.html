@@ -23,7 +23,7 @@
     <ion-item *ngIf="formGroup.value['@type'] == 'pagamentoComCartao' ">
       <ion-label stacked>Quantidade de parcelas</ion-label>
       <ion-select formControlName="numeroDeParcelas">
-        <ion-option *ngFor="let n of parcelas; first as f" [value]="n" [selected]="f">{{n}} X de {{total()/n  | currency:'BRL':true}}</ion-option>
+        <ion-option *ngFor="let n of parcelas; first as f" [value]="n" [selected]="f">{{n}} X de {{total()/n  | currency:'BRL':'simbol'}}</ion-option>
       </ion-select>
     </ion-item>
     <button ion-button block type="submit" [disabled]="formGroup.invalid" color="secondary">Finalizar a Compra</button>
