@@ -13,7 +13,7 @@
     <img [src]="item?.imageUrl || 'assets/imgs/img-blank.jpg'">
     <ion-card-content>
       <ion-card-title>{{item?.nome}}</ion-card-title>
-      <p>{{item?.preco | currency}}</p>
+      <p>{{item?.preco | currency:'BRL':true}}</p>
     </ion-card-content>
   </ion-card>
   <button ion-button block outline (click)="addToCart(item)">Adicionar ao carrinho</button>

@@ -10,6 +10,7 @@ import { EstadoDTO } from '../../models/estado.dto';
 import { CidadeDTO } from '../../models/cidade.dto';
 import { ClienteService } from '../../services/domain/cliente.service';
 
+
 @IonicPage()
 @Component({
   selector: 'page-signup',

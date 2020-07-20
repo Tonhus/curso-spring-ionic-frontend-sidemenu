@@ -1,8 +1,12 @@
 
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { ErrorHandler, NgModule } from '@angular/core';
+import { ErrorHandler, NgModule, LOCALE_ID } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+
+import { registerLocaleData } from '@angular/common';
+import localePT from '@angular/common/locales/pt';
+
 
 import { MyApp } from './app.component';
 
@@ -21,6 +25,11 @@ import { ViaCepService } from '../services/domain/viaCep.service';
 import { ProdutoService } from '../services/domain/produto.service';
 import { CartService } from '../services/domain/cart.service';
 import { ComponentsModule } from '../components/components.module';
+import {FormsModule} from '@angular/forms';
+
+
+registerLocaleData(localePT);
+
 
 @NgModule({
   declarations: [
@@ -28,8 +37,9 @@ import { ComponentsModule } from '../components/components.module';
   ],
   imports: [
     BrowserModule,
-    ComponentsModule,
     HttpClientModule,
+    FormsModule,
+    ComponentsModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
@@ -37,6 +47,10 @@ import { ComponentsModule } from '../components/components.module';
     MyApp,
   ],
   providers: [
+    {
+    provide: LOCALE_ID,
+      useValue: "pt"
+    },
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
