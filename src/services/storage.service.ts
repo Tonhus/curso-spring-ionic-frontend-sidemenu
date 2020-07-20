@@ -1,8 +1,5 @@
 import { STORAGE_KEYS } from './../config/storage_keys.config';
 import { LocalUser } from './../models/local_user';
-import { API_CONFIG } from './../config/api.config';
-import { HttpClient } from '@angular/common/http';
-import { CredenciaisDTO } from './../models/credenciais.dto';
 import { Injectable } from '@angular/core';
 import { Cart } from '../models/cart';
 

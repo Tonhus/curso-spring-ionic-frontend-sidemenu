@@ -1,6 +1,5 @@
 import { EstadoService } from './../../services/domain/estado.service';
 import { CidadeService } from './../../services/domain/cidade.service';
-import { ClienteNewDTO } from './../../models/cliente.new.dto';
 import { ViaCepService } from './../../services/domain/viaCep.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
@@ -141,7 +140,6 @@ export class SignupPage {
   }
 
   updateCpfOuCnpj() {
-    let valorAtual = this.formGroup.controls.cpfOuCnpj.value;
     switch (this.formGroup.controls.tipo.value) {
       case '1':
         this.cpfOuCnpjLabel = "CPF*"

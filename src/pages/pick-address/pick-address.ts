@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ClienteService } from '../../services/domain/cliente.service';
 import { StorageService } from '../../services/storage.service';
-import { RefDTO } from '../../models/ref.dto';
+
 
 @IonicPage()
 @Component({

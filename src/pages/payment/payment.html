@@ -8,11 +8,11 @@
 </ion-header>
 
 <ion-content padding>
-  <form [formGroup]="formGroup" (ngSubmit)="nextPage(); $event.preventDefault();">
+  <form [formGroup]="formGroup" (ngSubmit)="nextPage(); $event.preventDefault()">
     <ion-list radio-group formControlName="@type">
       <ion-list-header>Tipo de pagamento</ion-list-header>
       <ion-item>
-        <ion-label>A vista no boleto</ion-label>
+        <ion-label>À vista no boleto</ion-label>
         <ion-radio value="pagamentoComBoleto"></ion-radio>
       </ion-item>
       <ion-item>
@@ -25,6 +25,10 @@
       <ion-select formControlName="numeroDeParcelas">
         <ion-option *ngFor="let n of parcelas; first as f" [value]="n" [selected]="f">{{n}} X de {{total()/n  | currency:'BRL':'simbol'}}</ion-option>
       </ion-select>
+    </ion-item>
+    <ion-item>
+      <h1>Total</h1>
+      <h1 item-end>{{total() | currency:'BRL':'simbol'}}</h1>
     </ion-item>
     <button ion-button block type="submit" [disabled]="formGroup.invalid" color="secondary">Finalizar a Compra</button>
   </form>

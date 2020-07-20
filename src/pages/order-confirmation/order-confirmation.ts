@@ -32,12 +32,7 @@ export class OrderConfirmationPage {
 
       }, error => {
         this.navCtrl.setRoot("HomePage");
-       });
-  }
-
-  private findEndereco(id: string, list: EnderecoDTO[]): EnderecoDTO {
-    let position = list.findIndex(x => x.id == id);
-    return list[position];
+      });
   }
 
   total(): number {

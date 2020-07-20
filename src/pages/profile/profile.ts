@@ -1,7 +1,6 @@
-import { API_CONFIG } from './../../config/api.config';
+import { ImageBucketService } from './../../services/image-bucket.service';
 import { ClienteService } from './../../services/domain/cliente.service';
 import { ClienteDTO } from './../../models/cliente.dto';
-import { LocalUser } from './../../models/local_user';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { StorageService } from '../../services/storage.service';
@@ -20,7 +19,8 @@ export class ProfilePage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public storage: StorageService,
-    public clienteService: ClienteService) {
+    public clienteService: ClienteService,
+    public imageBucketService: ImageBucketService) {
   }
 
   ionViewDidLoad() {
@@ -43,10 +43,7 @@ export class ProfilePage {
   }
 
   getImageIfExists() {
-    this.clienteService.getImageFromBuket(this.cliente.id)
-      .subscribe(response => {
-        this.cliente.imageUrl = this.clienteService.getImageUrl(this.cliente.id);
-      }, error => { });
+    this.imageBucketService.loadImageUrl(this.cliente,this.imageBucketService.profilePrefix);
   }
 
 }

@@ -1,5 +1,4 @@
 import { CartService } from './domain/cart.service';
-import { Observable } from 'rxjs/Rx';
 import { StorageService } from './storage.service';
 import { LocalUser } from './../models/local_user';
 import { API_CONFIG } from './../config/api.config';
