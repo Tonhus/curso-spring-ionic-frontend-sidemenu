@@ -8,9 +8,40 @@
 </ion-header>
 
 <ion-content padding>
+
+
   <ion-avatar>
     <img class="circle center" [src]="cliente?.imageUrl || 'assets/imgs/avatar-blank.png'">
+    <ion-fab top right>
+      <button ion-fab mini>
+        <ion-icon name="image"></ion-icon>
+      </button>
+      <ion-fab-list side="botton">
+        <button (click)="getCameraPicture()" [disabled]="cameraOn" ion-fab mini>
+          <ion-icon name="camera"></ion-icon>
+        </button>
+        <label for='selecao-arquivo' ion-fab mini>
+          <ion-icon name="folder"></ion-icon>
+        </label>
+      </ion-fab-list>
+    </ion-fab>
   </ion-avatar>
+
   <h2 text-center>{{cliente?.nome}}</h2>
   <p text-center>{{cliente?.email}}</p>
+  
+  <input (change)="readUrl($event)" id='selecao-arquivo' type='file' accept="image/x-png,image/gif,image/jpeg" >
+  <ion-card *ngIf="picture">
+    <ion-card-header class="center">
+      <h1>Enviar imagem de perfil</h1>
+    </ion-card-header>
+    <ion-avatar>
+      <img [src]="picture">
+    </ion-avatar>
+    <ion-item>
+      <button ion-button block type="submit">Enviar</button>
+    </ion-item>
+
+  </ion-card>
+
 </ion-content>
