@@ -43,12 +43,14 @@ export class ImageBucketService {
     }
 
     loadImageUrl(item: any, prefix: string) {
-        this.getImageFromBucket(item.id, prefix).subscribe(
-            response => {
-                item["imageUrl"] = this.getImageUrl(item.id, prefix);
-            },
-            error => { }
-        );
+        if (!item["imageUrl"]) {
+            this.getImageFromBucket(item.id, prefix).subscribe(
+                response => {
+                    item["imageUrl"] = this.getImageUrl(item.id, prefix);
+                },
+                error => { }
+            );
+        }
     }
 
     loadSmallImageUrls(items: any[], prefix: string) {
@@ -59,11 +61,13 @@ export class ImageBucketService {
     }
 
     loadSmallImageUrl(item: any, prefix: string) {
-        this.getSmallImageFromBucket(item.id, prefix).subscribe(
-            response => {
-                item["imageUrl"] = this.getSmallImageUrl(item.id, prefix);
-            },
-            error => { }
-        );
+        if (!item["imageUrl"]) {
+            this.getSmallImageFromBucket(item.id, prefix).subscribe(
+                response => {
+                    item["imageUrl"] = this.getSmallImageUrl(item.id, prefix);
+                },
+                error => { }
+            );
+        }
     }
 }

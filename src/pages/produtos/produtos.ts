@@ -12,8 +12,9 @@ import { ImageBucketService } from '../../services/image-bucket.service';
   templateUrl: 'produtos.html',
 })
 export class ProdutosPage {
-  items: ProdutoDTO[];
+  items: ProdutoDTO[] = [];
   categoria: CategoriaDTO;
+  page: number = 0;
 
 
   constructor(
@@ -26,10 +27,6 @@ export class ProdutosPage {
   }
 
   ionViewDidLoad() {
-    this.loadData();
-  }
-  loadData() {
-    let loader = this.presentLoading();
     let categoria_id = this.navParams.get('categoria_id');
 
     this.categoriaService.findById(categoria_id).subscribe(
@@ -38,22 +35,29 @@ export class ProdutosPage {
       },
       error => { }
     );
+    this.loadData();
+  }
 
-    this.produtoService.findByCategoria(categoria_id).subscribe(
-      response => {
-        this.items = response['content'];
-        this.loadImageUrls();
-        loader.dismiss();
-      },
-      error => {
-        loader.dismiss();
-      }
-    );
+  loadData() {
+    let categoria_id = this.navParams.get('categoria_id');
+    let loader = this.presentLoading();
+    this.produtoService.findByCategoria(categoria_id, this.page, 10)
+      .subscribe(
+        response => {
+          let tempItems = response['content'];
+          this.items = this.items.concat(tempItems);
+          this.loadImageUrls(tempItems);
+          loader.dismiss();
+        },
+        error => {
+          loader.dismiss();
+        }
+      );
   }
 
 
-  loadImageUrls() {
-    this.imageBucketService.loadImageUrls(this.items, this.imageBucketService.produtoPrefix);
+  loadImageUrls(items) {
+    this.imageBucketService.loadImageUrls(items, this.imageBucketService.produtoPrefix);
   }
 
   showDetail(produto_id: string) {
@@ -69,10 +73,21 @@ export class ProdutosPage {
   }
 
   doRefresh(event) {
+    this.page = 0;
+    this.items = []
     this.loadData();
     setTimeout(() => {
       event.complete();
-    }, 1000);
+    }, 500);
   }
+
+  doInfinite(event) {
+    this.page++;
+    this.loadData();
+    setTimeout(() => {
+      event.complete();
+    }, 500);
+  }
+
 
 }
